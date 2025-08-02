@@ -1,0 +1,10 @@
+type: object
+properties:
+  skill:
+    type: string
+    description: The skill associated with the profile
+    example: "Programming"
+  detail:
+    type: string
+    description: Additional details about the skill
+    example: "Expert in Python and JavaScript"

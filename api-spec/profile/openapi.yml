@@ -1,0 +1,11 @@
+openapi: 3.0.3
+info:
+  title: Profile API
+  version: 1.0.0
+paths:
+  /profiles:
+    $ref: paths/profiles.yml
+  /profile/{id}:
+    $ref: paths/profile_{id}.yml
+  /profile:
+    $ref: paths/profile.yml

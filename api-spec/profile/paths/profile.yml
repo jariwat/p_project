@@ -1,0 +1,21 @@
+post:
+  summary: Create profile
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/UpsertProfile.yml
+  responses:
+    "200":
+      description: profile created
+      content:
+        application/json:
+          schema:
+            $ref: ../../global/components/schemas/Success.yml
+    "500":
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: ../../global/components/schemas/Error.yml

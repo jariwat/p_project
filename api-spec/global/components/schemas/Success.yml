@@ -1,0 +1,12 @@
+required:
+  - message
+properties:
+  message:
+    type: string
+    description: success
+    example: success
+  id:
+    type: string
+    format: uuid
+    description: The ID of the updated resource
+    example: "123e4567-e89b-12d3-a456-426614174000"

@@ -1,0 +1,36 @@
+get:
+  summary: Get profiles
+  parameters:
+    - in: query
+      name: search_word
+      schema:
+        type: string
+    - in: query
+      name: page
+      schema:
+        type: integer
+        default: 1
+    - in: query
+      name: per_page
+      schema:
+        type: integer
+        default: 10
+  responses:
+    "200":
+      description: List of profiles
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ProfilesPaginationResponse.yml
+    "204":
+      description: profiles not found
+      content:
+        application/json:
+          schema:
+            $ref: ../../global/components/schemas/Error.yml
+    "500":
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: ../../global/components/schemas/Error.yml

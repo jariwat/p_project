@@ -1,0 +1,28 @@
+type: object
+properties:
+  id:
+    type: string
+    format: uuid
+    description: The unique identifier of the profile
+    example: "12345"
+  first_name:
+    type: string
+    description: The first name of the profile
+    example: "John"
+  middle_name:
+    type: string
+    description: The middle name of the profile
+    example: "A"
+  last_name:
+    type: string
+    description: The last name of the profile
+    example: "Doe"
+  gender:
+    type: string
+    enum: ["MALE", "FEMALE"]
+    description: The gender of the profile
+    example: "MALE"
+  class:
+    type: string
+    description: The class of the profile
+    example: "Class A"

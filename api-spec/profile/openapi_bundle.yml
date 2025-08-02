@@ -1,0 +1,318 @@
+openapi: 3.0.3
+info:
+  title: Profile API
+  version: 1.0.0
+paths:
+  /profiles:
+    get:
+      summary: Get profiles
+      parameters:
+        - in: query
+          name: search_word
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: List of profiles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfilesPaginationResponse'
+        '204':
+          description: profiles not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /profile/{id}:
+    get:
+      summary: Get profile By ID
+      parameters:
+        - in: path
+          name: id
+          format: uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Profile details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileResponse'
+        '204':
+          description: profiles not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update profile
+      parameters:
+        - in: path
+          name: id
+          format: uuid
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpsertProfile'
+      responses:
+        '200':
+          description: profile updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete profile
+      parameters:
+        - in: path
+          name: id
+          format: uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: profile deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /profile:
+    post:
+      summary: Create profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpsertProfile'
+      responses:
+        '200':
+          description: profile created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Profiles:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the profile
+          example: '12345'
+        first_name:
+          type: string
+          description: The first name of the profile
+          example: John
+        middle_name:
+          type: string
+          description: The middle name of the profile
+          example: A
+        last_name:
+          type: string
+          description: The last name of the profile
+          example: Doe
+        gender:
+          type: string
+          enum:
+            - MALE
+            - FEMALE
+          description: The gender of the profile
+          example: MALE
+        class:
+          type: string
+          description: The class of the profile
+          example: Class A
+    ProfilesPaginationResponse:
+      type: object
+      properties:
+        total_rows:
+          type: integer
+          description: Total rows of users
+          example: 150
+        page:
+          type: integer
+          description: Current page number
+          example: 1
+        per_page:
+          type: integer
+          description: Number of items per page
+          example: 10
+        total_pages:
+          type: integer
+          description: Total number of pages
+          example: 15
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Profiles'
+    Error:
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: Error message
+    Skill:
+      type: object
+      properties:
+        skill:
+          type: string
+          description: The skill associated with the profile
+          example: Programming
+        detail:
+          type: string
+          description: Additional details about the skill
+          example: Expert in Python and JavaScript
+    Profile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the profile
+          example: '12345'
+        first_name:
+          type: string
+          description: The first name of the profile
+          example: John
+        middle_name:
+          type: string
+          description: The middle name of the profile
+          example: A
+        last_name:
+          type: string
+          description: The last name of the profile
+          example: Doe
+        gender:
+          type: string
+          enum:
+            - MALE
+            - FEMALE
+          description: The gender of the profile
+          example: MALE
+        class:
+          type: string
+          description: The class of the profile
+          example: Class A
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/Skill'
+    ProfileResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Profile'
+    UpsertSkill:
+      type: object
+      properties:
+        skill:
+          type: string
+          description: The name of the skill
+          example: Programming
+        detail:
+          type: string
+          description: Additional details about the skill
+          example: Expert in Python and JavaScript
+      required:
+        - skill
+        - detail
+    UpsertProfile:
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: The first name of the profile
+          example: John
+        middle_name:
+          type: string
+          description: The middle name of the profile
+          example: A
+        last_name:
+          type: string
+          description: The last name of the profile
+          example: Doe
+        gender:
+          type: string
+          enum:
+            - MALE
+            - FEMALE
+        class:
+          type: string
+          description: The class of the profile
+          example: Class A
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/UpsertSkill'
+      required:
+        - first_name
+        - last_name
+        - gender
+        - class
+        - skills
+    Success:
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: success
+          example: success
+        id:
+          type: string
+          format: uuid
+          description: The ID of the updated resource
+          example: 123e4567-e89b-12d3-a456-426614174000

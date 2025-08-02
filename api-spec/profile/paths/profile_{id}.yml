@@ -1,0 +1,78 @@
+get:
+  summary: Get profile By ID
+  parameters:
+    - in: path
+      name: id
+      format: uuid
+      required: true
+      schema:
+        type: string
+  responses:
+    "200":
+      description: Profile details
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ProfileResponse.yml
+    "204":
+      description: profiles not found
+      content:
+        application/json:
+          schema:
+            $ref: ../../global/components/schemas/Error.yml
+    "500":
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: ../../global/components/schemas/Error.yml
+put:
+  summary: Update profile
+  parameters:
+    - in: path
+      name: id
+      format: uuid
+      required: true
+      schema:
+        type: string
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/UpsertProfile.yml
+  responses:
+    "200":
+      description: profile updated
+      content:
+        application/json:
+          schema:
+            $ref: ../../global/components/schemas/Success.yml
+    "500":
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: ../../global/components/schemas/Error.yml
+delete:
+  summary: Delete profile
+  parameters:
+    - in: path
+      name: id
+      format: uuid
+      required: true
+      schema:
+        type: string
+  responses:
+    "200":
+      description: profile deleted
+      content:
+        application/json:
+          schema:
+            $ref: ../../global/components/schemas/Success.yml
+    "500":
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: ../../global/components/schemas/Error.yml

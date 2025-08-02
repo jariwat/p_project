@@ -1,0 +1,22 @@
+type: object
+properties:
+  total_rows:
+    type: integer
+    description: Total rows of users
+    example: 150
+  page:
+    type: integer
+    description: Current page number
+    example: 1
+  per_page:
+    type: integer
+    description: Number of items per page
+    example: 10
+  total_pages:
+    type: integer
+    description: Total number of pages
+    example: 15
+  data:
+    type: array
+    items:
+      $ref: ./Profiles.yml
