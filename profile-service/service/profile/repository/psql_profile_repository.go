@@ -7,3 +7,9 @@ import (
 type profileRepository struct {
 	client *gorm.DB
 }
+
+func NewPsqlProfileRepository(client *gorm.DB) *profileRepository {
+	return &profileRepository{
+		client: client,
+	}
+}

@@ -5,6 +5,7 @@ services:
   profile-service:
     build:
       context: ./
+      dockerfile: ./Dockerfile-development
     container_name: profile-service
     env_file: .env
     networks: 
