@@ -1,8 +1,3 @@
-generate:
-	go generate ./...
-# Find all OpenAPI specifications
-SPECS := $(shell find api-spec -name openapi.yml)
-
 # Bundle OpenAPI specifications
 bundle:
 	@if [ -z "$(SPECS)" ]; then \

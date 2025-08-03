@@ -1,0 +1,21 @@
+version: "3"
+
+services: 
+
+  profile-service:
+    build:
+      context: ./
+    container_name: profile-service
+    env_file: .env
+    networks: 
+      - default
+    ports:
+      - 3000:3000
+      - 3010:3100
+    volumes:
+      - .:/go/src/jariwat/p_project/profile-service
+  
+networks:
+  default:
+    external:
+      name: p_project_network
