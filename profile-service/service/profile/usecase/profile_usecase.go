@@ -1,6 +1,6 @@
 package usecase
 
-import "jariwat/p_project/profile-service/service/profile"
+import "github.com/jariwat/p_project/profile-service/service/profile"
 
 type profileUsecase struct {
 	profileRepo profile.ProfileRepository

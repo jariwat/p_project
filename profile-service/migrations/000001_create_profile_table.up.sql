@@ -1,11 +1,11 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-CREATE TYPE "GENDER" AS ENUM (
+CREATE TYPE GENDER AS ENUM (
   'MALE',
   'FEMALE'
 );
 
-CREATE TABLE "profile" (
+CREATE TABLE IF NOT EXISTS profile (
   "id" UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   "first_name" VARCHAR(255),
   "middle_name" VARCHAR(255),
@@ -16,7 +16,7 @@ CREATE TABLE "profile" (
   "updated_at" TIMESTAMP
 );
 
-CREATE TABLE "skill" (
+CREATE TABLE IF NOT EXISTS skill (
   "id" UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   "profile_id" UUID,
   "skill" VARCHAR(255),
@@ -25,4 +25,11 @@ CREATE TABLE "skill" (
   "updated_at" TIMESTAMP
 );
 
-ALTER TABLE "skill" ADD FOREIGN KEY ("profile_id") REFERENCES "profile" ("id");
+ALTER TABLE skill
+ADD CONSTRAINT fk_skill_profile
+FOREIGN KEY ("profile_id")
+REFERENCES "profile" ("id")
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+CREATE INDEX idx_skill_profile_id ON skill(profile_id);

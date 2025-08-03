@@ -1,8 +1,22 @@
 version: "3"
 
 services: 
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: psqlapp1234
+      POSTGRES_DB: profile
 
   profile-service:
+    environment:
+      DB_HOST: db  # <-- ไม่ใช่ localhost
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: psqlapp1234
+      DB_NAME: profile
     build:
       context: ./
       dockerfile: ./Dockerfile-development
@@ -15,6 +29,13 @@ services:
       - 3010:3100
     volumes:
       - .:/go/src/jariwat/p_project/profile-service
+      
+  adminer:
+    image: adminer
+    ports:
+      - "8080:8080"
+    networks:
+      - default
   
 networks:
   default:
