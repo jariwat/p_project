@@ -46,10 +46,10 @@ paths:
       parameters:
         - in: path
           name: id
-          format: uuid
           required: true
           schema:
             type: string
+            format: uuid
       responses:
         '200':
           description: Profile details
@@ -74,10 +74,10 @@ paths:
       parameters:
         - in: path
           name: id
-          format: uuid
           required: true
           schema:
             type: string
+            format: uuid
       requestBody:
         required: true
         content:
@@ -102,10 +102,10 @@ paths:
       parameters:
         - in: path
           name: id
-          format: uuid
           required: true
           schema:
             type: string
+            format: uuid
       responses:
         '200':
           description: profile deleted

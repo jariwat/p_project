@@ -18,8 +18,8 @@ type profileHandler struct {
 }
 
 // DeleteProfileId implements profile.ServerInterface.
-func (p *profileHandler) DeleteProfileId(c *gin.Context, id string) {
-	var profileId = uuid.FromStringOrNil(id)
+func (p *profileHandler) DeleteProfileId(c *gin.Context, id types.UUID) {
+	var profileId = uuid.FromStringOrNil(id.String())
 
 	if err := p.profileUs.DeleteProfile(&profileId); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -34,8 +34,8 @@ func (p *profileHandler) DeleteProfileId(c *gin.Context, id string) {
 }
 
 // GetProfileId implements profile.ServerInterface.
-func (p *profileHandler) GetProfileId(c *gin.Context, id string) {
-	var profileId = uuid.FromStringOrNil(id)
+func (p *profileHandler) GetProfileId(c *gin.Context, id types.UUID) {
+	var profileId = uuid.FromStringOrNil(id.String())
 
 	profile, err := p.profileUs.FetchProfileById(&profileId)
 	if err != nil {
@@ -134,8 +134,8 @@ func (p *profileHandler) PostProfile(c *gin.Context) {
 }
 
 // PutProfileId implements profile.ServerInterface.
-func (p *profileHandler) PutProfileId(c *gin.Context, id string) {
-	var profileId = uuid.FromStringOrNil(id)
+func (p *profileHandler) PutProfileId(c *gin.Context, id types.UUID) {
+	var profileId = uuid.FromStringOrNil(id.String())
 
 	var updateProfile _profile.UpsertProfile
 	if err := c.ShouldBindJSON(&updateProfile); err != nil {
