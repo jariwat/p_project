@@ -1,0 +1,191 @@
+{
+	"info": {
+		"_postman_id": "9cfaad4d-6331-4e60-ad5d-d0929b0f72dd",
+		"name": "P_PROJECT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16291334"
+	},
+	"item": [
+		{
+			"name": "hello world",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:3000",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create profile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"first_name\": \"AliZe\",\r\n  \"middle_name\": \"\",\r\n  \"last_name\": \"Phanes\",\r\n  \"gender\": \"FEMALE\",\r\n  \"class\": \"Queen\",\r\n  \"skills\": [\r\n    {\r\n      \"skill\": \"Heal\",\r\n      \"detail\": \"Heal everything\"\r\n    },\r\n    {\r\n      \"skill\": \"Melody Harmonic\",\r\n      \"detail\": \"Buff Status Everything\"\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:3000/profile",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update profile",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"first_name\": \"SeiA\",\r\n  \"middle_name\": \"\",\r\n  \"last_name\": \"Phanes\",\r\n  \"gender\": \"MALE\",\r\n  \"class\": \"King\",\r\n  \"skills\": [\r\n    {\r\n      \"skill\": \"Sword Master\",\r\n      \"detail\": \"Expert in Sword Weapon\"\r\n    },\r\n    {\r\n      \"skill\": \"Gunslinger\",\r\n      \"detail\": \"Expert in Gun Weapon\"\r\n    }\r\n  ]\r\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:3000/profile/:id",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"profile",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetch profiles",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"first_name\": \"SeiA\",\r\n  \"middle_name\": \"\",\r\n  \"last_name\": \"Phanes\",\r\n  \"gender\": \"MALE\",\r\n  \"class\": \"King\",\r\n  \"skills\": [\r\n    {\r\n      \"skill\": \"Sword Master\",\r\n      \"detail\": \"Expert in Sword Weapon\"\r\n    },\r\n    {\r\n      \"skill\": \"Gunslinger\",\r\n      \"detail\": \"Expert in Gun Weapon\"\r\n    }\r\n  ]\r\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:3000/profiles?search_word=AliZe",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"profiles"
+					],
+					"query": [
+						{
+							"key": "search_word",
+							"value": "AliZe"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetch profile by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"first_name\": \"SeiA\",\r\n  \"middle_name\": \"\",\r\n  \"last_name\": \"Phanes\",\r\n  \"gender\": \"MALE\",\r\n  \"class\": \"King\",\r\n  \"skills\": [\r\n    {\r\n      \"skill\": \"Sword Master\",\r\n      \"detail\": \"Expert in Sword Weapon\"\r\n    },\r\n    {\r\n      \"skill\": \"Gunslinger\",\r\n      \"detail\": \"Expert in Gun Weapon\"\r\n    }\r\n  ]\r\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:3000/profile/:id",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"profile",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete profile",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"first_name\": \"SeiA\",\r\n  \"middle_name\": \"\",\r\n  \"last_name\": \"Phanes\",\r\n  \"gender\": \"MALE\",\r\n  \"class\": \"King\",\r\n  \"skills\": [\r\n    {\r\n      \"skill\": \"Sword Master\",\r\n      \"detail\": \"Expert in Sword Weapon\"\r\n    },\r\n    {\r\n      \"skill\": \"Gunslinger\",\r\n      \"detail\": \"Expert in Gun Weapon\"\r\n    }\r\n  ]\r\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:3000/profile/:id",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"profile",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "987517c2-9f3c-4d98-81d8-46da28a72ab6"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

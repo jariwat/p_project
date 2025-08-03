@@ -15,6 +15,10 @@ type Skill struct {
 	UpdatedAt *time.Time `json:"updated_at"`
 }
 
+func (Skill) TableName() string {
+	return "skill"
+}
+
 func (s *Skill) GenUUID() {
 	id, _ := uuid.NewV4()
 	s.ID = &id

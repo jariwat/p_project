@@ -1,47 +1,60 @@
 package middleware
 
 import (
+	"context"
 	"net/http"
 
-	oapigin "github.com/deepmap/oapi-codegen/pkg/gin-middleware"
 	"github.com/getkin/kin-openapi/openapi3"
+	"github.com/getkin/kin-openapi/openapi3filter"
+	"github.com/getkin/kin-openapi/routers"
+	"github.com/getkin/kin-openapi/routers/legacy"
 	"github.com/gin-gonic/gin"
 )
 
 func CreateOpenapiMiddleware(
 	getSwaggers ...func() (*openapi3.T, error),
 ) (gin.HandlerFunc, error) {
-	// สร้าง slice ของ middleware ที่ validate ตามแต่ละ spec
-	validators := make([]gin.HandlerFunc, 0, len(getSwaggers))
+	// สร้าง router จากแต่ละ spec
+	routersList := make([]routers.Router, 0, len(getSwaggers))
 
 	for _, getSwagger := range getSwaggers {
 		spec, err := getSwagger()
 		if err != nil {
 			return nil, err
 		}
+		// Validate และสร้าง router
+		if err := spec.Validate(context.Background()); err != nil {
+			return nil, err
+		}
 
-		validator := oapigin.OapiRequestValidatorWithOptions(spec, &oapigin.Options{})
-
-		validators = append(validators, validator)
+		r, err := legacy.NewRouter(spec)
+		if err != nil {
+			return nil, err
+		}
+		routersList = append(routersList, r)
 	}
 
-	// return MiddlewareFunc
 	return func(c *gin.Context) {
 		var matched bool
 
-		for _, v := range validators {
-			// ใช้ middleware ตรวจแบบ dummy
-			copyCtx := c.Copy()
-			v(copyCtx)
+		for _, r := range routersList {
+			route, pathParams, err := r.FindRoute(c.Request)
+			if err != nil {
+				continue
+			}
 
-			// ตรวจว่า request ผ่าน spec ไหน
-			if !copyCtx.IsAborted() {
+			// Validate request input
+			reqValidation := &openapi3filter.RequestValidationInput{
+				Request:    c.Request,
+				PathParams: pathParams,
+				Route:      route,
+			}
+
+			if err := openapi3filter.ValidateRequest(c.Request.Context(), reqValidation); err == nil {
+				// ผ่าน
 				matched = true
 				break
 			}
-
-			// gin ไม่มี error return จาก middleware แบบ echo
-			// ดังนั้นควรใช้ StatusCode หรือ Aborted Flag ตรวจเอา
 		}
 
 		if !matched {

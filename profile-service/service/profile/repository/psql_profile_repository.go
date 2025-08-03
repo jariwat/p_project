@@ -60,13 +60,6 @@ func (p *profileRepository) CreateProfile(profile *models.Profile) error {
 			return err
 		}
 
-		for _, skill := range profile.Skills {
-			skill.ProfileID = profile.ID
-			if err := tx.Create(skill).Error; err != nil {
-				return err
-			}
-		}
-
 		return nil
 	})
 }

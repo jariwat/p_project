@@ -82,7 +82,7 @@ func (p *profileHandler) GetProfiles(c *gin.Context, params _profile.GetProfiles
 		return
 	}
 
-	if profiles == nil {
+	if profiles == nil || len(profiles) == 0 {
 		c.JSON(http.StatusNotFound, gin.H{"error": "No profiles found"})
 		return
 	}

@@ -26,6 +26,10 @@ type Profile struct {
 	Skills []*Skill `json:"skills"`
 }
 
+func (Profile) TableName() string {
+	return "profile"
+}
+
 func (p *Profile) GenUUID() {
 	id, _ := uuid.NewV4()
 	p.ID = &id
